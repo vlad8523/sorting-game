@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Interactables;
 using UnityEngine;
 
 public class InteractiveScript : MonoBehaviour
 {
+    public InteractableType type;
+    
     private Rigidbody m_RigidBody;
     private Vector3 _velocity;
 
@@ -53,6 +56,11 @@ public class InteractiveScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other);
+        var container = other.GetComponent<GarbageContainer>();
+
+        if (container)
+        {
+            container.Interact(this);
+        }
     }
 }
