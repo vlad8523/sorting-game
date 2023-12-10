@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class InteractiveScript : MonoBehaviour
 {
-    private float speed = 0.01f;
     private Rigidbody m_RigidBody;
-    private Vector3 curMousePosition;
-    private Vector3 offsetPosition;
-    private Vector3 curPosition;
-    private Vector3 offset;
-    private Vector3 velocity;
+    private Vector3 _velocity;
+
+    private Vector3 _screenPosition;
+    private Vector3 _prevPosition;
+    private Vector3 _curPosition;
+
+    private Plane _plane = new Plane(Vector3.down, 4);
 
     public float force = 10000;
 
@@ -25,25 +26,29 @@ public class InteractiveScript : MonoBehaviour
         m_RigidBody.velocity = Vector3.zero;
 
         m_RigidBody.useGravity = false;
-        curMousePosition = new Vector3(Input.mousePosition.x, 0, Input.mousePosition.y);
-        transform.position += Vector3.up * 2;
-        
-        offsetPosition = transform.position;
     }
 
     private void OnMouseDrag()
     {
-        offset = new Vector3(Input.mousePosition.x, 0, Input.mousePosition.y) - curMousePosition;
-        curPosition = transform.position;
+        _screenPosition = Input.mousePosition;
+        _prevPosition = transform.position;
+
+        var ray = Camera.main.ScreenPointToRay(_screenPosition);
+
+        if (_plane.Raycast(ray, out float distance))
+        {
+            _curPosition = ray.GetPoint(distance);
+        }
         
-        transform.position = offsetPosition + offset * speed;
-        velocity = offsetPosition + offset * speed - curPosition;
+        transform.position = _curPosition;
+        
+        _velocity = _curPosition - _prevPosition;
     }
 
     private void OnMouseUp()
     {
         m_RigidBody.useGravity = true;
-        m_RigidBody.AddForce(velocity * force);
+        m_RigidBody.AddForce(_velocity * force);
     }
 
     private void OnTriggerEnter(Collider other)
