@@ -69,3 +69,4 @@ crashlytics-build.properties
 
 # External content sources
 /[Aa]ssets/**/ExternalContent/**/Sources/
+/[Aa]ssets/TextMesh Pro/
