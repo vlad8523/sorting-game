@@ -15,7 +15,7 @@ public class InteractiveScript : MonoBehaviour
     private Vector3 _prevPosition;
     private Vector3 _curPosition;
 
-    private Plane _plane = new Plane(Vector3.down, 4);
+    private Plane _plane = new Plane(Vector3.down, 5);
 
     public float force = 10000;
 
