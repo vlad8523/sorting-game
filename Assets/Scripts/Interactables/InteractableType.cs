@@ -5,7 +5,7 @@ namespace Interactables
     public enum InteractableType
     {
         Plastic,
-        Glass,
+        Metallic,
         Paper
     }
 }
