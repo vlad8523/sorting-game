@@ -10,6 +10,7 @@ namespace Interactables
         public InteractableType type;
 
         public static event Action<int> OnUpdateScore;
+        public static event Action OnDeleteTrash;
 
         private int _score = 100;
 
@@ -30,6 +31,7 @@ namespace Interactables
             }
             
             Destroy(trashObject);
+            OnDeleteTrash?.Invoke();
         }
     }
 }

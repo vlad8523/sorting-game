@@ -8,6 +8,7 @@ public class DestroyerScript : MonoBehaviour
     public GameObject scoreGameObject;
 
     public static event Action<int> OnUpdateScore;
+    public static event Action OnDeleteTrash;
     
     public int score = -80;
 
@@ -16,5 +17,6 @@ public class DestroyerScript : MonoBehaviour
         Destroy(trashObject);
         
         OnUpdateScore?.Invoke(score);
+        OnDeleteTrash?.Invoke();
     }
 }

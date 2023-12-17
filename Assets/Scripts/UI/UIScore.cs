@@ -1,15 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UIScore : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private TextMeshProUGUI _text;
-
-    public void ShowScore(int value)
+    public class UIScore : MonoBehaviour
     {
-        _text.text = value.ToString();
-    }
+        [SerializeField] private TextMeshProUGUI _text;
 
+        public void ShowScore(int value)
+        {
+            _text.text = value.ToString();
+        }
+
+    }
 }

@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using DefaultNamespace;
 using UnityEngine;
+using Utils;
 using Random = UnityEngine.Random;
 
 public class SpawnerScript : MonoBehaviour
