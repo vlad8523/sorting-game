@@ -13,18 +13,23 @@ namespace Interactables
 
         private int _score = 100;
 
-        public void Interact(InteractiveScript interactive)
+        public void Interact(GameObject trashObject)
         {
-            Debug.Log(type == interactive.type);
+            var interactive = trashObject.GetComponent<InteractiveScript>();
 
-            if (type == interactive.type)
+            if (interactive)
             {
-                OnUpdateScore?.Invoke(_score);
+                if (type == interactive.type)
+                {
+                    OnUpdateScore?.Invoke(_score);
+                }
+                else
+                {
+                    OnUpdateScore?.Invoke(-_score);
+                }
             }
-            else
-            {
-                OnUpdateScore?.Invoke(-_score);
-            }
+            
+            Destroy(trashObject);
         }
     }
 }

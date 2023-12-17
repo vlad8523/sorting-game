@@ -15,8 +15,10 @@ public class InteractiveScript : MonoBehaviour
     private Vector3 _prevPosition;
     private Vector3 _curPosition;
 
-    private Plane _plane = new Plane(Vector3.down, 5);
+    public static float heightPlane = 2.5f;
 
+    private static Plane _plane = new Plane(Vector3.down, heightPlane);
+    
     public float force = 10000;
 
     private void Start()
@@ -56,11 +58,21 @@ public class InteractiveScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.CompareTag("Destroy"))
+        {
+            var destroyerScript = other.GetComponent<DestroyerScript>();
+        
+            if (destroyerScript)
+            {
+                destroyerScript.DeleteObject(gameObject);
+            }
+        }
+
         var container = other.GetComponent<GarbageContainer>();
 
         if (container)
         {
-            container.Interact(this);
+            container.Interact(gameObject);
         }
     }
 }
